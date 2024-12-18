@@ -107,7 +107,7 @@ These results suggest that while TD3 improved on some issues, it still couldn’
 ## Reward Function Re-Design
 
 <div style="text-align: justify;">
-To get better results we re-designed the reward function starting from reward functions of proven papers​. Again it proved difficult balancing the hyperparameters to encourage the desired bahavior.​ <br>
+To get better results we re-designed the reward function starting from reward functions of proven papers ("Learning to Fly in Seconds" by Jonas Eschmann et al.)​. Again it proved difficult balancing the hyperparameters to encourage the desired bahavior.​ <br>
 Here we basically penalized distance, orientation misalignment and control effort and promoted ​being close to the target and reaching the target. The seven terms to calculate our reward for penalizing and promoting behavior can be seen in the following table. 
 </div>
 <br>
