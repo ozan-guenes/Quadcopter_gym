@@ -26,7 +26,7 @@ In our project, we begin by applying RL in a drone simulation environment withou
 
 In this project, we used a drone simulation environment based on standard quadcopter dynamics, defined by ordinary differential equations. These dynamics were derived from _Quadcopter Dynamics, Simulation, and Control_ by Andrew Gibiansky and _Quadrotor Dynamics and Control_ by Randal Beard. We implemented these dynamics using a codebase from [this GitHub repository](https://github.com/abhijitmajumdar/Quadcopter_simulator), which includes a PID controller for quadcopter control and navigation.
 
-**State and Action Spaces**
+<h5>State and Action Spaces</h5>
 The drone's state is represented by a 12-dimensional vector that includes position [x, y, z], linear velocities, angular orientations [&theta;, &phi;, &psi;], and angular rates. The action space consists of thrust forces from the four motors, each ranging from 4000 to 9000 units, simulating realistic motor inputs. To enable reinforcement learning, we extended the state space by adding a goal position and a goal yaw orientation, forming a 16-dimensional state vector that represents both the drone's current state and its target state.
 
 <div align="center">
@@ -37,7 +37,7 @@ The drone's state is represented by a 12-dimensional vector that includes positi
     <img src="./figures/goal_state.png" alt="Goal State Representation" width="35%">
 </div>
 
-**Simulating Episodes**
+<h5>Simulating Episodes</h5>
 Each simulation episode begins by randomly sampling the drone's initial and goal states. The task is for the drone to navigate to the target, at which point a new goal is generated.
 
 ## Reward Function Design
