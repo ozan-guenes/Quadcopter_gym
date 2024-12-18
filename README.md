@@ -154,3 +154,24 @@ SAC is an off-policy, model-free algorithm. It maximizes a trade-off between exp
 ## Performance Comparison: SAC and PPO
 
 ## Conclusions and Limitations
+
+### Initial Goals:
+
+The primary objective was to implement safety-aware reinforcement learning (RL) techniques for drone navigation.
+
+### Challenges Faced:
+
+- **Training Difficulties**: We encountered significant challenges in training the drone to learn basic navigation policies.
+- **Limited Experience**: Our limited prior experience with practical RL training impacted productivity.
+- **Environment and Reward Functions**: The creation of a custom environment and reward functions required substantial effort and hyperparameter tuning.
+- **Policy Learning**: Learning a policy from scratch proved difficult, with no consistently successful outcomes.
+
+### Future Directions:
+
+- **Start Simpler**: The focus will shift to training the drone to hover before progressing to more complex point-to-point navigation.
+- **Leverage Imitation Learning**: We plan to collect PID controller trajectories to guide the training process.
+- **Reward and Environment Adjustments**: We hypothesize that careful adjustments to the reward function and environment could lead to better results with additional time and effort.
+
+### Takeaway:
+
+Despite the limited success, this project provided valuable hands-on experience in RL. We developed a custom quadcopter RL environment that can be utilized in future research on safety-aware drone navigation using RL.
