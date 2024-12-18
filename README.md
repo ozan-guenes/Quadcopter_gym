@@ -13,13 +13,13 @@ Visit the [online version](https://github.com/ozan-guenes/Quadcopter_gym/tree/ma
 
 The motivation behind this project comes from the difficulties of using reinforcement learning (RL) for drone navigation in real-world settings. Traditional drone control methods, like PID controllers, struggle when dealing with disturbances or obstacles in the environment. Reinforcement learning, especially for continuous control tasks, has the potential to autonomously adapt and improve drone navigation.
 
-**Challenges with Existing Methods**
+<h5>Challenges with Existing Methods</h5>
 One of the main issues with current methods is how they handle disturbances. Many RL approaches have a hard time dealing with unexpected changes, which can negatively impact performance and reliability. Another challenge is ensuring safety in RL, as safety measures are still not fully developed, which is a big concern for real-world applications. For example, when training a real drone to fly, we would not want the drone to collide during either training or inference, as this could make the training process very costly and inefficient.
 
-**Potential applications**
+<h5>Potential applications</h5>
 This research has a lot of potential applications. Drones could be used for search-and-rescue missions in tough terrains, where their ability to adjust to changing conditions is essential. They could also be useful for delivery services in urban environments, where navigating through dense buildings and avoiding obstacles is a challenge.
 
-**Our project**
+<h5>Our project</h5>
 In our project, we begin by applying RL in a drone simulation environment without any disturbances. The plan was to first get a functioning RL agent in this initial, disturbance-free environment, and then gradually introduce disturbances and obstacles later on. However, learning the drone to fly and navigate turned out to be more challenging than expected, so we focus only on our efforts to train the drone for navigation. The later developments in safe RL are left for future work.
 
 ## Simulation Environment 
@@ -188,16 +188,20 @@ For **SAC**, the untrained model struggled to stabilize the UAV, while the train
 
 ## Conclusions and Limitations
 
-**Initial Goals**
+<h5>Initial Goals</h5>
+
 The main goal was to implement safety-aware reinforcement learning (RL) techniques for drone navigation. Unfortunately, developing an RL agent that could simply fly and navigate in a basic environment without wind, obstacles, or safety constraints during training proved to be challenging enough. As a result, our work shifted focus to testing different RL algorithms in a simpler drone environment without those disturbances and obstacles. Having a working model in such a basic environment is essential before we can introduce more complex elements like obstacles and safety concerns in future work.
 
-**Challenges Faced**
+<h5>Challenges Faced</h5>
+
 We ran into a lot of challenges while training the drone to learn basic navigation. Our lack of hands-on experience with practical RL training made things slower and more difficult than we expected. Setting up a custom environment and designing the reward functions took a lot of time, and tuning the hyperparameters was pretty tricky. On top of that, learning a policy from scratch turned out to be harder than we anticipated, and we didn’t see consistent success in the outcomes.
 
-**Future Directions**
+<h5>Future Directions</h5>
+
 Our plan going forward is to start simpler by first training the drone to hover before moving on to more complex tasks like point-to-point navigation. We also want to use imitation learning by collecting trajectories from a PID controller to help guide the training process. Lastly, we think that with more time and effort, tweaking the reward function and adjusting the environment could lead to better results.
 
-**Takeaway**
+<h5>Takeaway</h5>
+
 Even though the results weren’t as good as we hoped, this project still gave us some really valuable hands-on experience with RL. We managed to build a custom quadcopter RL environment, which could be useful for future research on safety-aware drone navigation using RL.
 
 </div>
