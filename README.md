@@ -10,3 +10,17 @@
 ## Simulation Environment 
 
 ## Challenges in Training RL Agent
+
+## Reward Function Design 
+
+## DDPG vs. TD3: Key Differences
+
+## Performance Comparison: DDPG vs. TD3
+
+## Reward Function Re-Design
+
+## SAC and PPO: Key Differences
+
+## Performance Comparison: SAC and PPO
+
+## Conclusions and Limitations
