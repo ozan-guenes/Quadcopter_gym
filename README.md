@@ -38,6 +38,35 @@ Each simulation episode begins by randomly sampling the drone's initial and goal
 
 ## Performance Comparison: DDPG vs. TD3
 
+The DDPG algorithm failed to converge to a meaningful policy during training, highlighting its inability to effectively navigate the quadcopter environment. The TD3 algorithm showed improvements over DDPG, but performance remained suboptimal.
+
+When evaluating the trained agents from both methods over 100 episodes, the mean rewards and standard deviations were as follows:
+
+- **DDPG**: Mean reward of \(-2091 \pm 1198\)
+- **TD3**: Mean reward of \(-1588 \pm 837\)
+
+Both algorithms exhibited high variance, and although TD3 outperformed DDPG, the results suggest that both approaches achieved suboptimal rewards. Qualitative simulations further revealed only slight improvements with TD3 over an untrained agent. Simulations of the untrained TD3 agent (left) and trained agent (right) are shown below, demonstrating the limited gains achieved.
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+
+  <figure style="text-align: center; width: 32%;">
+    <img src="./figures/td3_untrained.gif" alt="TD3 Untrained" style="width: 100%; height: auto;">
+    <figcaption>TD3 Untrained</figcaption>
+  </figure>
+  
+  <figure style="text-align: center; width: 32%;">
+    <img src="./figures/td3_trained.gif" alt="TD3 Trained" style="width: 100%; height: auto;">
+    <figcaption>TD3 Trained</figcaption>
+  </figure>
+  
+  <figure style="text-align: center; width: 32%;">
+    <img src="./figures/ddpg_vs_td3.png" alt="DDPG vs TD3" style="width: 100%; height: auto;">
+    <figcaption>DDPG vs TD3 Comparison</figcaption>
+  </figure>
+
+</div>
+These findings indicate that while TD3 addressed some shortcomings, it still failed to deliver reliable drone navigation. To address this, we simplified the learning environment by fixing the drone's start and goal positions across all episodes, aiming to make the policy easier to learn. Additionally, we tested the SAC and PPO algorithms within this simplified environment to explore alternative approaches.
+
 ## Reward Function Re-Design
 
 ## SAC and PPO: Key Differences
