@@ -9,6 +9,8 @@ Visit the [online version](https://github.com/ozan-guenes/Quadcopter_gym/tree/ma
 
 ## Project Motivation
 
+<div style="text-align: justify;">
+
 The motivation behind this project comes from the difficulties of using reinforcement learning (RL) for drone navigation in real-world settings. Traditional drone control methods, like PID controllers, struggle when dealing with disturbances or obstacles in the environment. Reinforcement learning, especially for continuous control tasks, has the potential to autonomously adapt and improve drone navigation.
 
 **Challenges with Existing Methods**
@@ -19,6 +21,7 @@ This research has a lot of potential applications. Drones could be used for sear
 
 **Our project**
 In our project, we begin by applying RL in a drone simulation environment without any disturbances. The plan was to first get a functioning RL agent in this initial, disturbance-free environment, and then gradually introduce disturbances and obstacles later on. However, learning the drone to fly and navigate turned out to be more challenging than expected, so we focus only on our efforts to train the drone for navigation. The later developments in safe RL are left for future work.
+</div>
 
 ## Simulation Environment 
 
@@ -123,22 +126,38 @@ These findings indicate that while TD3 addressed some shortcomings, it still fai
 
 ## Reward Function Re-Design
 
-To get better results we re-designed the reward function starting from reward functions of proven papers​.
+<div style="text-align: justify;">
+To get better results we re-designed the reward function starting from reward functions of proven papers​. Again it proved difficult balancing the hyperparameters to encourage the desired bahavior.​ <br>
+Here we basically penalized distance, orientation misalignment and control effort and promoted ​being close to the target and reaching the target. The seven terms to calculate our reward for penalizing and promoting behavior can be seen in the following table. 
+</div>
 
-Again it proved difficult balancing the hyperparameters to encourage the desired bahavior.​
+<div align="center">
 
-Here we basically penalized distance, orientation misalignment and control effort and promoted ​
-being close to the target and reaching the target.
+| Penalty | Reward |
+| --- | --- |
+| *r*<sub>pos</sub> : Position tracking | *r*<sub>reached</sub> : Target reached within 0.1 m |
+| *r*<sub>ori</sub> : Orientation tracking | *r*<sub>close</sub> : Target closeness |
+| *r*<sub>stab</sub> : Instability | |
+| *r*<sub>ctr</sub> : Control effort | |
+| *r*<sub>col</sub> : Collision | |
+</div>
+
+<br>
 
 <div align="center">
     <img src="./figures/reward2.png" alt="Goal State Representation" width="100%">
 </div>
 
+<br>
+
 ## SAC and PPO: Key Differences
 
 ### Soft Actor-Critic (SAC)
 
-SAC is an **off-policy**, **model-free** algorithm. It maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. SAC also uses a replay buffer to sample past experiences efficiently.
+<div style="text-align: justify;">
+
+SAC is an **off-policy**, **model-free** algorithm that maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. Furthermore SAC uses a replay buffer to sample past experiences efficiently.
+</div>
 
 <div align="center">
 
@@ -152,7 +171,11 @@ SAC is an **off-policy**, **model-free** algorithm. It maximizes a trade-off bet
 
 ### Proximal Policy Optimization (PPO)
 
-PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimizes a clipped surrogate objective, which prevents large, unstable updates to the policy. PPO uses single policy networks and avoids replay buffers, making it simpler and more stable.
+<div style="text-align: justify;">
+
+PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimizes a clipped surrogate objective preventing large, unstable updates to the policy. It uses single policy networks and avoids replay buffers, making it simpler and more stable.
+
+</div>
 
 <div align="center">
 
@@ -182,20 +205,24 @@ PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimi
 
 ### Performance
 
-|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                                                                                            |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
+| | |
+| ---------- | --------- |
+| <div style="text-align: justify;"> For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer — around 4200 episodes — before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -695.14. </div> | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
 
 ### Observations
 
-For SAC, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
+<div style="text-align: justify;">
+For **SAC**, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
 
-For PPO, the trained model performed better. It aligned the UAV with the target and came closer to stabilizing within the target's proximity. Quantitatively, PPO demonstrated superior alignment and overall performance compared to SAC.
+For **PPO**, the trained model performed better. It aligned the UAV with the target and came closer to stabilizing within the target's proximity. Quantitatively, PPO demonstrated superior alignment and overall performance compared to SAC.
+</div>
 
-|         |                   Untrained                   |                   Moderately Trained                   |                  Trained                  |
-| ------- | :-------------------------------------------: | :----------------------------------------------------: | :---------------------------------------: |
+|   |   Untrained   |   Moderately Trained   |     Trained     |
+| :-------: | :------------: | :----------: | :-----------: |
 | **SAC** | ![SAC Untrained](./figures/sac_untrained.gif) | ![SAC Mod Trained](./figures/sac_moderate_trained.gif) | ![SAC Trained](./figures/sac_trained.gif) |
 | **PPO** | ![PPO Untrained](./figures/ppo_untrained.gif) | ![PPO Mod Trained](./figures/ppo_moderate_trained.gif) | ![PPO Trained](./figures/ppo_trained.gif) |
+
+<br>
 
 ## Conclusions and Limitations
 
