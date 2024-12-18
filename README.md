@@ -9,21 +9,16 @@ Visit the [online version](https://github.com/ozan-guenes/Quadcopter_gym/tree/ma
 
 ## Project Motivation
 
-The motivation for this project comes from the challenges of using reinforcement learning for drone navigation in real-world scenarios.​
+The motivation behind this project comes from the difficulties of using reinforcement learning (RL) for drone navigation in real-world settings. Traditional drone control methods, like PID controllers, struggle when dealing with disturbances or obstacles in the environment. Reinforcement learning, especially for continuous control tasks, has the potential to autonomously adapt and improve drone navigation.
 
-Traditional drone control relies on classical controllers like PID, but these methods struggle in adverse environments with disturbances or obstacles.​
+**Challenges with Existing Methods**
+One of the main issues with current methods is how they handle disturbances. Many RL approaches have a hard time dealing with unexpected changes, which can negatively impact performance and reliability. Another challenge is ensuring safety in RL, as safety measures are still not fully developed, which is a big concern for real-world applications. For example, when training a real drone to fly, we would not want the drone to collide during either training or inference, as this could make the training process very costly and inefficient.
 
-Reinforcement learning, particularly for continuous control tasks, offers the potential to adapt and optimize drone navigation policies autonomously.
+**Potential applications**
+This research has a lot of potential applications. Drones could be used for search-and-rescue missions in tough terrains, where their ability to adjust to changing conditions is essential. They could also be useful for delivery services in urban environments, where navigating through dense buildings and avoiding obstacles is a challenge.
 
-### Challenges with Existing Methods:​
-
-- **Handling Disturbances**: Many RL approaches struggle with unexpected disturbances
-- **Safety in RL**: Safety measures in RL are still relatively underdeveloped
-
-### Potential applications: ​
-
-- Search-and-rescue missions in complex terrains.​
-- Delivery in urban environments
+**Our project**
+In our project, we begin by applying RL in a drone simulation environment without any disturbances. The plan was to first get a functioning RL agent in this initial, disturbance-free environment, and then gradually introduce disturbances and obstacles later on. However, learning the drone to fly and navigate turned out to be more challenging than expected, so we focus only on our efforts to train the drone for navigation. The later developments in safe RL are left for future work.
 
 ## Simulation Environment 
 
