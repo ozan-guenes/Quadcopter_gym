@@ -210,7 +210,6 @@ For PPO, the trained model performed better. It aligned the UAV with the target 
 ## Conclusions and Limitations
 
 **Initial Goals**
-
 The main goal was to implement safety-aware reinforcement learning (RL) techniques for drone navigation. Unfortunately, developing an RL agent that could simply fly and navigate in a basic environment without wind, obstacles, or safety constraints during training proved to be challenging enough. As a result, our work shifted focus to testing different RL algorithms in a simpler drone environment without those disturbances and obstacles. Having a working model in such a basic environment is essential before we can introduce more complex elements like obstacles and safety concerns in future work.
 
 **Challenges Faced**
