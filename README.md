@@ -87,14 +87,14 @@ Below, you'll find the pseudocode for both algorithms.
 
 ## Performance Comparison: DDPG vs. TD3
 
-The DDPG algorithm failed to converge to a meaningful policy during training, highlighting its inability to effectively navigate the quadcopter environment. The TD3 algorithm showed improvements over DDPG, but performance remained suboptimal.
+The DDPG algorithm didn’t manage to converge to a useful policy during training, which highlighted its struggles in navigating the quadcopter environment. The TD3 algorithm showed some improvement over DDPG, but the performance was still far from ideal.
 
-When evaluating the trained agents from both methods over 100 episodes, the mean rewards and standard deviations were as follows:
+When we tested the trained agents from both methods over 100 episodes, the mean rewards and standard deviations were:
 
 - **DDPG**: Mean reward of \(-2091 \pm 1198\)
 - **TD3**: Mean reward of \(-1588 \pm 837\)
 
-Both algorithms exhibited high variance, and although TD3 outperformed DDPG, the results suggest that both approaches achieved suboptimal rewards. Qualitative simulations further revealed only slight improvements with TD3 over an untrained agent. Simulations of the untrained TD3 agent (left) and trained agent (right) are shown below, demonstrating the limited gains achieved.
+Both algorithms had high variance, and while TD3 performed better than DDPG, the results still pointed to suboptimal rewards. Looking at the qualitative simulations, we only saw slight improvements with TD3 over an untrained agent. The simulations below show the untrained TD3 agent on the left and the trained agent on the right, highlighting the limited progress made.
 
 |                 TD3 Untrained                 |                TD3 Trained                |          DDPG vs TD3 Comparison           |
 | :-------------------------------------------: | :---------------------------------------: | :---------------------------------------: |
