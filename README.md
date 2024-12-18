@@ -111,7 +111,7 @@ These findings indicate that while TD3 addressed some shortcomings, it still fai
 To get better results we re-designed the reward function starting from reward functions of proven papers​. Again it proved difficult balancing the hyperparameters to encourage the desired bahavior.​ <br>
 Here we basically penalized distance, orientation misalignment and control effort and promoted ​being close to the target and reaching the target. The seven terms to calculate our reward for penalizing and promoting behavior can be seen in the following table. 
 </div>
-
+<br>
 <div align="center">
 
 | Penalty | Reward |
@@ -137,16 +137,12 @@ Here we basically penalized distance, orientation misalignment and control effor
 
 <div style="text-align: justify;">
 
-SAC is an **off-policy**, **model-free** algorithm that maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. Furthermore SAC uses a replay buffer to sample past experiences efficiently.
-</div>
-
-<div align="center">
-
-| **Strengths of SAC**                                                       | **Challenges of SAC**                                                                               |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| SAC is highly effective for continuous control tasks                       | SAC is computationally intensive because it trains twin Q-networks simultaneously.                  |
-| It has strong exploration capabilities due to entropy maximization         | It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation. |
-| It is computationally efficient compared to PPO, making it easier to scale |                                                                                                     |
+**SAC** is an **off-policy**, **model-free** algorithm that maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. 
+Furthermore SAC uses a replay buffer to sample past experiences efficiently.
+<br>It's strengths are that it is highly effective for continuous control tasks and it has great exploration capabilities due to entropy maximization.
+It is computationally efficient compared to PPO, making it easier for scaling. 
+But it comes with limitations as well. SAC is computationally intensive because it trains twin Q-networks simultaneously.
+Furthermore it requires careful fine-tuning to balance exploration and exploitation.
 
 </div>
 
@@ -154,21 +150,17 @@ SAC is an **off-policy**, **model-free** algorithm that maximizes a trade-off be
 
 <div style="text-align: justify;">
 
-PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimizes a clipped surrogate objective preventing large, unstable updates to the policy. It uses single policy networks and avoids replay buffers, making it simpler and more stable.
+**PPO**, on the other hand, is an **on-policy**, **model-free** algorithm. 
+It optimizes a clipped surrogate objective preventing large, unstable updates to the policy. 
+It uses single policy networks and avoids replay buffers, making it simpler and more stable.
+<br> So it's core strengths are that it's simple to implement and that it leads to more stable training results.
+It can be used for environments with discrete or continuous action space. 
+Furthermore it is popular for the use in large-scale distributed systems.
+Nevertheless it comes with challenges as well. 
+PPO is less sample-efficient compared to off-policy methods like SAC and 
+it requires more interactions with the environment, which can be costly.
 
 </div>
-
-<div align="center">
-
-| **Strengths of PPO**                                                       | **Challenges of PPO**                                                    |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| PPO is simpler to implement and produces more stable training results      | PPO is less sample-efficient compared to off-policy methods like SAC.    |
-| It is suitable for environments with either discrete or continuous actions | It requires more interactions with the environment, which can be costly. |
-| PPO is popular for training agents in large-scale distributed systems      |                                                                          |
-
-</div>
-
-<br>
 
 <div align="center">
 
@@ -182,6 +174,8 @@ PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimi
 
 </div>
 
+<br>
+
 ## Performance Comparison: SAC and PPO
 
 ### Performance
@@ -193,6 +187,7 @@ PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimi
 ### Observations
 
 <div style="text-align: justify;">
+
 For **SAC**, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
 
 For **PPO**, the trained model performed better. It aligned the UAV with the target and came closer to stabilizing within the target's proximity. Quantitatively, PPO demonstrated superior alignment and overall performance compared to SAC.
