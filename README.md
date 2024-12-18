@@ -48,7 +48,33 @@ Each simulation episode begins by randomly sampling the drone's initial and goal
 
 ## Challenges in Training RL Agent
 
-## Reward Function Design 
+## Reward Function Design
+
+Designing an effective reward function was critical for training reinforcement learning (RL) policies. The reward function needed to balance competing objectives to encourage desired drone behaviors. Key components of the reward function included:
+
+- **Distance minimization**: Encouraging the drone to reduce its distance to the target.
+- **Environment safety**: Penalizing collisions and staying within the predefined bounds of the environment.
+- **Flight stability**: Discouraging high velocities and angular rates to promote smooth and controlled movement.
+
+The reward function was composed of weighted terms that accounted for multiple aspects of drone performance:
+
+- **Positive contributions**:
+
+  - Time spent in the air.
+  - Reduction in distance to the target.
+  - Orientation stability.
+  - A bonus for successfully reaching the target.
+
+- **Negative contributions**:
+  - Boundary violations.
+  - Instability, such as high angular velocities.
+  - Excessive motor usage.
+
+We tested various combinations of these parameters to determine a set of weights that effectively balanced exploration, stability, and safety. Below is the formulation of the reward function used to present our following results:
+
+<div align="center">
+    <img src="./figures/reward1.png" alt="Goal State Representation" width="100%">
+</div>
 
 ## DDPG vs. TD3: Key Differences
 
