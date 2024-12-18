@@ -128,6 +128,8 @@ These findings indicate that while TD3 addressed some shortcomings, it still fai
 
 ## Reward Function Re-Design
 
+As we could not get the earlier experiments to work, we opted to redesign our reward function to the one below. This includes many of the same terms but with different weighting and some additional terms promoting closeness to the target even more. Additionally, we adapted the penalty for high velocities, making it more severe when the drone is near the target to prevent overshooting.
+
 <div align="center">
     <img src="./figures/reward2.png" alt="Goal State Representation" width="100%">
 </div>
@@ -161,13 +163,14 @@ PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a cl
 
 #### Challenges of PPO:
 
-| Feature | SAC | PPO |
-| --- | --- | --- |
-| Type | off-policy | on-policy |
-| Exploration | strong (entropy driven) | moderate |
-| Sample Efficiency | high (uses replay buffer) | lower (needs more samples) |
-| Training Stability | moderate (requires careful tuning) | high |
-| Performance | better for continuous control | balanced for all tasks |
+| Feature            | SAC                                | PPO                        |
+| ------------------ | ---------------------------------- | -------------------------- |
+| Type               | off-policy                         | on-policy                  |
+| Exploration        | strong (entropy driven)            | moderate                   |
+| Sample Efficiency  | high (uses replay buffer)          | lower (needs more samples) |
+| Training Stability | moderate (requires careful tuning) | high                       |
+| Performance        | better for continuous control      | balanced for all tasks     |
+
 </div>
 
 ## Performance Comparison: SAC and PPO
@@ -187,12 +190,13 @@ PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a cl
 </div>
 
 ### Observations
+
 For SAC, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
 
 For PPO, the trained model performed better. It aligned the UAV with the target and came closer to stabilizing within the target's proximity. Quantitatively, PPO demonstrated superior alignment and overall performance compared to SAC.
 
-|   | Untrained | Moderately Trained | Trained |
-| --- | :---: | :---: | :--------------: |
+|         |                   Untrained                   |                   Moderately Trained                   |                  Trained                  |
+| ------- | :-------------------------------------------: | :----------------------------------------------------: | :---------------------------------------: |
 | **SAC** | ![SAC Untrained](./figures/sac_untrained.gif) | ![SAC Mod Trained](./figures/sac_moderate_trained.gif) | ![SAC Trained](./figures/sac_trained.gif) |
 | **PPO** | ![PPO Untrained](./figures/ppo_untrained.gif) | ![PPO Mod Trained](./figures/ppo_moderate_trained.gif) | ![PPO Trained](./figures/ppo_trained.gif) |
 
