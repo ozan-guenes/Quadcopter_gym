@@ -15,6 +15,7 @@ Traditional drone control relies on classical controllers like PID, but these me
 
 Reinforcement learning, particularly for continuous control tasks, offers the potential to adapt and optimize drone navigation policies autonomously.
 
+
 ### Challenges with Existing Methods:​
 
 - **Handling Disturbances**: Many RL approaches struggle with unexpected disturbances
@@ -24,6 +25,7 @@ Reinforcement learning, particularly for continuous control tasks, offers the po
 
 - Search-and-rescue missions in complex terrains.​
 - Delivery in urban environments
+
 
 ## Simulation Environment 
 
@@ -47,6 +49,7 @@ The action space includes thrust forces from the four motors, each ranging from 
 </div>
 
 Each simulation episode begins by randomly sampling the drone's initial and goal states. The task is for the drone to navigate to the target, at which point a new goal is generated.
+
 
 ## Reward Function Design
 
@@ -76,6 +79,7 @@ We tested various combinations of these parameters to determine a set of weights
     <img src="./figures/reward1.png" alt="Goal State Representation" width="100%">
 </div>
 
+
 ## Challenges in Training RL Agent
 
 We encountered challenges in training the RL agent for point-to-point navigation. To diagnose the issue, we tested multiple RL algorithms.
@@ -89,6 +93,7 @@ We encountered challenges in training the RL agent for point-to-point navigation
   We also tested well-established algorithms such as TD3, SAC, and PPO to verify and compare performance. While these algorithms showed slightly better results, they still fell short of the desired performance.
 
 We will now briefly review the algorithms considered and present the results in the following slides.
+
 
 ## DDPG vs. TD3: Key Differences
 
@@ -109,6 +114,7 @@ The pseudocode for both the algorithms is provided below.
 | :--------------------------------------: | :-----------------------------------: |
 | ![TD3 Untrained](./figures/ddpg_alg.png) | ![TD3 Trained](./figures/td3_alg.png) |
 
+
 ## Performance Comparison: DDPG vs. TD3
 
 The DDPG algorithm failed to converge to a meaningful policy during training, highlighting its inability to effectively navigate the quadcopter environment. The TD3 algorithm showed improvements over DDPG, but performance remained suboptimal.
@@ -126,15 +132,24 @@ Both algorithms exhibited high variance, and although TD3 outperformed DDPG, the
 
 These findings indicate that while TD3 addressed some shortcomings, it still failed to deliver reliable drone navigation. To address this, we simplified the learning environment by fixing the drone's start and goal positions across all episodes, aiming to make the policy easier to learn. Additionally, we tested the SAC and PPO algorithms within this simplified environment to explore alternative approaches.
 
+
 ## Reward Function Re-Design
+
+To get better results we re-designed the reward function starting from reward functions of proven papers​
+
+Again it proved difficult balancing the hyperparameters to encourage the desired bahavior.​
+
+Here we basically penalized distance, orientation misalignment and control effort and promoted ​
+being close to the target and reaching the target.
 
 <div align="center">
     <img src="./figures/reward2.png" alt="Goal State Representation" width="100%">
 </div>
 
+
 ## SAC and PPO: Key Differences
 
-### Soft Actor-Critic (SAC):
+### Soft Actor-Critic (SAC)
 
 SAC is an off-policy, model-free algorithm. It maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. SAC also uses a replay buffer to sample past experiences efficiently.
 
@@ -149,17 +164,19 @@ SAC is an off-policy, model-free algorithm. It maximizes a trade-off between exp
 - SAC is computationally intensive because it trains twin Q-networks simultaneously.
 - It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation.
 
-### Proximal Policy Optimization (PPO):
+### Proximal Policy Optimization (PPO)
 
 PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a clipped surrogate objective, which prevents large, unstable updates to the policy. PPO uses single policy networks and avoids replay buffers, making it simpler and more stable.
 
 #### Strengths of PPO:
-
 - PPO is simpler to implement and produces more stable training results
 - It is suitable for environments with either discrete or continuous actions
 - PPO is popular for training agents in large-scale distributed systems
 
 #### Challenges of PPO:
+- PPO is less sample-efficient compared to off-policy methods like SAC. It requires more interactions with the environment, which can be costly.
+
+<div align="center">
 
 | Feature | SAC | PPO |
 | --- | --- | --- |
@@ -170,21 +187,14 @@ PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a cl
 | Performance | better for continuous control | balanced for all tasks |
 </div>
 
+
 ## Performance Comparison: SAC and PPO
 
 ### Performance
 
-<div style="display: flex; align-items: flex-start;">
-  <div style="flex: 1; margin-right: 10px;">
-    <p> For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization. </p>
-    In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. </p>
-    Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. </p>
-    
-  </div>
-  <div style="flex: 1;">
-    <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="max-width: 100%; height: auto;">
-  </div>
-</div>
+|  |  |
+| --- | --- |
+| <br> For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
 
 ### Observations
 For SAC, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
@@ -195,6 +205,7 @@ For PPO, the trained model performed better. It aligned the UAV with the target 
 | --- | :---: | :---: | :--------------: |
 | **SAC** | ![SAC Untrained](./figures/sac_untrained.gif) | ![SAC Mod Trained](./figures/sac_moderate_trained.gif) | ![SAC Trained](./figures/sac_trained.gif) |
 | **PPO** | ![PPO Untrained](./figures/ppo_untrained.gif) | ![PPO Mod Trained](./figures/ppo_moderate_trained.gif) | ![PPO Trained](./figures/ppo_trained.gif) |
+
 
 ## Conclusions and Limitations
 
