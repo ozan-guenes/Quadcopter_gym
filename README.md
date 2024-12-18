@@ -135,32 +135,21 @@ Here we basically penalized distance, orientation misalignment and control effor
 
 ### Soft Actor-Critic (SAC)
 
-<div style="text-align: justify;">
+<!-- <div style="text-align: justify;"> -->
 
-**SAC** is an **off-policy**, **model-free** algorithm that maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. 
-Furthermore SAC uses a replay buffer to sample past experiences efficiently.
-<br>It's strengths are that it is highly effective for continuous control tasks and it has great exploration capabilities due to entropy maximization.
-It is computationally efficient compared to PPO, making it easier for scaling. 
-But it comes with limitations as well. SAC is computationally intensive because it trains twin Q-networks simultaneously.
-Furthermore it requires careful fine-tuning to balance exploration and exploitation.
+**SAC** is an **off-policy**, **model-free** algorithm that maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. Furthermore SAC uses a replay buffer to sample past experiences efficiently.
+It's strengths are that it is highly effective for continuous control tasks and it has great exploration capabilities due to entropy maximization. It is computationally efficient compared to PPO, making it easier for scaling. But it comes with limitations as well. SAC is computationally intensive because it trains twin Q-networks simultaneously. Furthermore it requires careful fine-tuning to balance exploration and exploitation.
 
-</div>
+<!-- </div> -->
 
 ### Proximal Policy Optimization (PPO)
 
-<div style="text-align: justify;">
+<!-- <div style="text-align: justify;"> -->
 
-**PPO**, on the other hand, is an **on-policy**, **model-free** algorithm. 
-It optimizes a clipped surrogate objective preventing large, unstable updates to the policy. 
-It uses single policy networks and avoids replay buffers, making it simpler and more stable.
-<br> So it's core strengths are that it's simple to implement and that it leads to more stable training results.
-It can be used for environments with discrete or continuous action space. 
-Furthermore it is popular for the use in large-scale distributed systems.
-Nevertheless it comes with challenges as well. 
-PPO is less sample-efficient compared to off-policy methods like SAC and 
-it requires more interactions with the environment, which can be costly.
+**PPO**, on the other hand, is an **on-policy**, **model-free** algorithm. It optimizes a clipped surrogate objective preventing large, unstable updates to the policy. It uses single policy networks and avoids replay buffers, making it simpler and more stable.
+So it's core strengths are that it's simple to implement and that it leads to more stable training results. It can be used for environments with discrete or continuous action space. Furthermore it is popular for the use in large-scale distributed systems. Nevertheless it comes with challenges as well. PPO is less sample-efficient compared to off-policy methods like SAC and it requires more interactions with the environment, which can be costly.
 
-</div>
+<!-- </div> -->
 
 <div align="center">
 
