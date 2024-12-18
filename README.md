@@ -102,7 +102,7 @@ Both algorithms had high variance, and while TD3 performed better than DDPG, the
 | :-------------------------------------------: | :---------------------------------------: | :---------------------------------------: |
 | ![TD3 Untrained](./figures/td3_untrained.gif) | ![TD3 Trained](./figures/td3_trained.gif) | ![DDPG vs TD3](./figures/ddpg_vs_td3.png) |
 
-These findings indicate that while TD3 addressed some shortcomings, it still failed to deliver reliable drone navigation. To address this, we simplified the learning environment by fixing the drone's start and goal positions across all episodes, aiming to make the policy easier to learn. Additionally, we tested the SAC and PPO algorithms within this simplified environment to explore alternative approaches.
+These results suggest that while TD3 improved on some issues, it still couldn’t provide reliable drone navigation. To make things easier, we simplified the learning environment by fixing the drone's start and goal positions across all episodes, hoping it would help the policy learn faster. We also decided to try the SAC and PPO algorithms in this simpler setup to see if they could perform better.
 
 ## Reward Function Re-Design
 
