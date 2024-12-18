@@ -201,25 +201,16 @@ For **SAC**, the untrained model struggled to stabilize the UAV, while the train
 
 ## Conclusions and Limitations
 
-### Initial Goals:
+**Initial Goals**
+The main goal was to implement safety-aware reinforcement learning (RL) techniques for drone navigation. Unfortunately, developing an RL agent that could simply fly and navigate in a basic environment without wind, obstacles, or safety constraints during training proved to be challenging enough. As a result, our work shifted focus to testing different RL algorithms in a simpler drone environment without those disturbances and obstacles. Having a working model in such a basic environment is essential before we can introduce more complex elements like obstacles and safety concerns in future work.
 
-The primary objective was to implement safety-aware reinforcement learning (RL) techniques for drone navigation.
+**Challenges Faced**
+We ran into a lot of challenges while training the drone to learn basic navigation. Our lack of hands-on experience with practical RL training made things slower and more difficult than we expected. Setting up a custom environment and designing the reward functions took a lot of time, and tuning the hyperparameters was pretty tricky. On top of that, learning a policy from scratch turned out to be harder than we anticipated, and we didn’t see consistent success in the outcomes.
 
-### Challenges Faced:
+**Future Directions**
+Our plan going forward is to start simpler by first training the drone to hover before moving on to more complex tasks like point-to-point navigation. We also want to use imitation learning by collecting trajectories from a PID controller to help guide the training process. Lastly, we think that with more time and effort, tweaking the reward function and adjusting the environment could lead to better results.
 
-- **Training Difficulties**: We encountered significant challenges in training the drone to learn basic navigation policies.
-- **Limited Experience**: Our limited prior experience with practical RL training impacted productivity.
-- **Environment and Reward Functions**: The creation of a custom environment and reward functions required substantial effort and hyperparameter tuning.
-- **Policy Learning**: Learning a policy from scratch proved difficult, with no consistently successful outcomes.
-
-### Future Directions:
-
-- **Start Simpler**: The focus will shift to training the drone to hover before progressing to more complex point-to-point navigation.
-- **Leverage Imitation Learning**: We plan to collect PID controller trajectories to guide the training process.
-- **Reward and Environment Adjustments**: We hypothesize that careful adjustments to the reward function and environment could lead to better results with additional time and effort.
-
-### Takeaway:
-
-Despite the limited success, this project provided valuable hands-on experience in RL. We developed a custom quadcopter RL environment that can be utilized in future research on safety-aware drone navigation using RL.
+**Takeaway**
+Even though the results weren’t as good as we hoped, this project still gave us some really valuable hands-on experience with RL. We managed to build a custom quadcopter RL environment, which could be useful for future research on safety-aware drone navigation using RL.
 
 </div>
