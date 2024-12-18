@@ -21,7 +21,6 @@ This research has a lot of potential applications. Drones could be used for sear
 
 **Our project**
 In our project, we begin by applying RL in a drone simulation environment without any disturbances. The plan was to first get a functioning RL agent in this initial, disturbance-free environment, and then gradually introduce disturbances and obstacles later on. However, learning the drone to fly and navigate turned out to be more challenging than expected, so we focus only on our efforts to train the drone for navigation. The later developments in safe RL are left for future work.
-</div>
 
 ## Simulation Environment 
 
@@ -114,13 +113,14 @@ Here we basically penalized distance, orientation misalignment and control effor
 
 <div align="center">
 
-| Penalty | Reward |
-| --- | --- |
-| *r*<sub>pos</sub> : Position tracking | *r*<sub>reached</sub> : Target reached within 0.1 m |
-| *r*<sub>ori</sub> : Orientation tracking | *r*<sub>close</sub> : Target closeness |
-| *r*<sub>stab</sub> : Instability | |
-| *r*<sub>ctr</sub> : Control effort | |
-| *r*<sub>col</sub> : Collision | |
+| Penalty                                  | Reward                                              |
+| ---------------------------------------- | --------------------------------------------------- |
+| _r_<sub>pos</sub> : Position tracking    | _r_<sub>reached</sub> : Target reached within 0.1 m |
+| _r_<sub>ori</sub> : Orientation tracking | _r_<sub>close</sub> : Target closeness              |
+| _r_<sub>stab</sub> : Instability         |                                                     |
+| _r_<sub>ctr</sub> : Control effort       |                                                     |
+| _r_<sub>col</sub> : Collision            |                                                     |
+
 </div>
 
 <br>
@@ -138,6 +138,7 @@ Here we basically penalized distance, orientation misalignment and control effor
 <div style="text-align: justify;">
 
 SAC is an **off-policy**, **model-free** algorithm that maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. Furthermore SAC uses a replay buffer to sample past experiences efficiently.
+
 </div>
 
 <div align="center">
@@ -186,20 +187,21 @@ PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimi
 
 ### Performance
 
-| | |
-| ---------- | --------- |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |                                                                                            |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | <div style="text-align: justify;"> For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer — around 4200 episodes — before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -695.14. </div> | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
 
 ### Observations
 
 <div style="text-align: justify;">
-For **SAC**, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
+For SAC, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
 
-For **PPO**, the trained model performed better. It aligned the UAV with the target and came closer to stabilizing within the target's proximity. Quantitatively, PPO demonstrated superior alignment and overall performance compared to SAC.
+For PPO, the trained model performed better. It aligned the UAV with the target and came closer to stabilizing within the target's proximity. Quantitatively, PPO demonstrated superior alignment and overall performance compared to SAC.
+
 </div>
 
-|   |   Untrained   |   Moderately Trained   |     Trained     |
-| :-------: | :------------: | :----------: | :-----------: |
+|         |                   Untrained                   |                   Moderately Trained                   |                  Trained                  |
+| :-----: | :-------------------------------------------: | :----------------------------------------------------: | :---------------------------------------: |
 | **SAC** | ![SAC Untrained](./figures/sac_untrained.gif) | ![SAC Mod Trained](./figures/sac_moderate_trained.gif) | ![SAC Trained](./figures/sac_trained.gif) |
 | **PPO** | ![PPO Untrained](./figures/ppo_untrained.gif) | ![PPO Mod Trained](./figures/ppo_moderate_trained.gif) | ![PPO Trained](./figures/ppo_trained.gif) |
 
@@ -227,3 +229,5 @@ The primary objective was to implement safety-aware reinforcement learning (RL) 
 ### Takeaway:
 
 Despite the limited success, this project provided valuable hands-on experience in RL. We developed a custom quadcopter RL environment that can be utilized in future research on safety-aware drone navigation using RL.
+
+</div>
