@@ -25,16 +25,10 @@ In our project, we begin by applying RL in a drone simulation environment withou
 
 ## Simulation Environment 
 
-In this project, we utilized a drone simulation environment based on standard quadcopter dynamics, defined by ordinary differential equations. The dynamics were derived from _Quadcopter Dynamics, Simulation, and Control_ by Andrew Gibiansky and _Quadrotor Dynamics and Control_ by Randal Beard. We employed an implementation of these dynamics from [this GitHub repository](https://github.com/abhijitmajumdar/Quadcopter_simulator), which includes a PID controller for quadcopter control and navigation.
+In this project, we used a drone simulation environment based on standard quadcopter dynamics, defined by ordinary differential equations. These dynamics were derived from _Quadcopter Dynamics, Simulation, and Control_ by Andrew Gibiansky and _Quadrotor Dynamics and Control_ by Randal Beard. We implemented these dynamics using a codebase from [this GitHub repository](https://github.com/abhijitmajumdar/Quadcopter_simulator), which includes a PID controller for quadcopter control and navigation.
 
-The drone's state is represented by a 12-dimensional vector comprising:
-
-- Position: \([x, y, z]\),
-- Linear velocities,
-- Angular orientations: \([\theta, \phi, \psi]\),
-- Angular rates.
-
-The action space includes thrust forces from the four motors, each ranging from 4000 to 9000 units, simulating realistic motor inputs. To facilitate reinforcement learning, the state space was extended to include a goal position and a goal yaw orientation, forming a 16-dimensional vector that encompasses both the drone's state and the goal state.
+**State and Action Spaces**
+The drone's state is represented by a 12-dimensional vector that includes position \([x, y, z]\), linear velocities, angular orientations \([\theta, \phi, \psi]\), and angular rates. The action space consists of thrust forces from the four motors, each ranging from 4000 to 9000 units, simulating realistic motor inputs. To enable reinforcement learning, we extended the state space by adding a goal position and a goal yaw orientation, forming a 16-dimensional state vector that represents both the drone's current state and its target state.
 
 <div align="center">
     <img src="./figures/quadcopter_env.png" alt="Quadcopter Environment" width="70%">
@@ -44,64 +38,51 @@ The action space includes thrust forces from the four motors, each ranging from 
     <img src="./figures/goal_state.png" alt="Goal State Representation" width="35%">
 </div>
 
+**Simulating Episodes**
 Each simulation episode begins by randomly sampling the drone's initial and goal states. The task is for the drone to navigate to the target, at which point a new goal is generated.
 
 ## Reward Function Design
 
-Designing an effective reward function was critical for training reinforcement learning (RL) policies. The reward function needed to balance competing objectives to encourage desired drone behaviors. Key components of the reward function included:
+We quickly experienced that designing an effective reward function was very important for this RL task. The reward function needed to balance competing objectives to encourage desired drone behaviors. Key components of the reward function were:
 
 - **Distance minimization**: Encouraging the drone to reduce its distance to the target.
 - **Environment safety**: Penalizing collisions and staying within the predefined bounds of the environment.
-- **Flight stability**: Discouraging high velocities and angular rates to promote smooth and controlled movement.
+- **Flight stability**: Discouraging high velocities and angular rates to promote smooth, controlled, and safe movement.
 
-The reward function was composed of weighted terms that accounted for multiple aspects of drone performance:
+The reward function was composed of weighted terms that accounted for these aspects of good drone behavior. Positive contributions included time spent in the air, reduction in distance to the target, orientation stability, and a bonus for successfully reaching the target. Negative contributions included boundary violations, instability (such as high angular velocities), and excessive motor usage.
 
-- **Positive contributions**:
-
-  - Time spent in the air.
-  - Reduction in distance to the target.
-  - Orientation stability.
-  - A bonus for successfully reaching the target.
-
-- **Negative contributions**:
-  - Boundary violations.
-  - Instability, such as high angular velocities.
-  - Excessive motor usage.
-
-We tested various combinations of these parameters to determine a set of weights that effectively balanced exploration, stability, and safety. Below is the formulation of the reward function used to present our following results:
+We tested various combinations of these weighted parameters to determine a set of weights (\(\alpha\)) that could help the drone learn to safely fly and navigate. However, tuning these weights was quite challenging as there were many parameters, and it took a long time to test a single set of parameters due to the long RL training time. Below is the formulation of the reward function we initially used:
 
 <div align="center">
     <img src="./figures/reward1.png" alt="Goal State Representation" width="100%">
 </div>
 
-## Challenges in Training RL Agent
+## Challenges in Training RL Agent: Tested RL Methods
 
-We encountered challenges in training the RL agent for point-to-point navigation. To diagnose the issue, we tested multiple RL algorithms.
-
-### Tested RL Methods:
+We ran into some issues when training the RL agent for point-to-point navigation, so we decided to try out different RL algorithms to figure out what was going wrong.
 
 - **Custom DDPG Implementation**:
-  We implmented the DDPG algorithm from scratch based on the original paper. However, the results were suboptimal, raising concerns about the accuracy of the implementation.
+  We implemented the DDPG algorithm from scratch, following the original paper ("Continuous control with deep reinforcement" by Timothy P. Lillicrap et al.). Unfortunately, the results weren’t great, and we started to question if there were any issues with our implementation.
 
 - **Proven Algorithms**:
-  We also tested well-established algorithms such as TD3, SAC, and PPO to verify and compare performance. While these algorithms showed slightly better results, they still fell short of the desired performance.
+  We also tested some more established algorithms like TD3, SAC, and PPO to see how they compared. These performed a little better, but still didn’t quite reach the level we were hoping for.
 
-We will now briefly review the algorithms considered and present the results in the following report.
+Next, we’ll give a quick overview of the algorithms we tried and show the results we got. First, we compared the performance between DDPG and TD3 in the current environment, but this led to weak performance. After that, we tested SAC and PPO in a simplified learning environment with a re-designed reward function. While this approach gave us better results, they still weren’t satisfying. The reason for the weak results is not clear to us, despite trying a lot of debugging. We would need more time to find the root of the problem.
 
 ## DDPG vs. TD3: Key Differences
 
-Deep Deterministic Policy Gradient (DDPG) is a model-free, off-policy, actor-critic algorithm designed for continuous action spaces. However, its performance can be hindered by stability and robustness issues. Twin Delayed Deep Deterministic Policy Gradient (TD3) addresses these limitations by introducing key improvements.
+Deep Deterministic Policy Gradient (DDPG) is a model-free, off-policy, actor-critic algorithm designed for continuous action spaces. But, it can have some stability and robustness issues that affect performance. Twin Delayed Deep Deterministic Policy Gradient (TD3) was developed to tackle these problems with a few key improvements:
 
-**Overestimation Bias**
-DDPG relies on a single Q-network, which is susceptible to overestimation due to noise and errors in value predictions. In contrast, TD3 employs two Q-networks, using Double Q-learning to take the minimum Q-value. This approach effectively mitigates overestimation bias, enhancing the stability of learning.
+- **Overestimation Bias**  
+  DDPG uses a single Q-network, which can suffer from overestimation due to noise and errors in value predictions. TD3 improves on this by using two Q-networks and Double Q-learning to take the minimum Q-value, which helps reduce overestimation bias and makes the learning process more stable.
 
-**Action Noise for Exploration**
-In DDPG, noise (we use an Ornstein-Uhlenbeck process) is added directly to the actions to promote exploration. However, this can lead to instability in environments with sharp value gradients. TD3 improves upon this by adding noise to the target actions instead, resulting in smoother and more stable updates.
+- **Action Noise for Exploration**  
+  In DDPG, we add noise (using an Ornstein-Uhlenbeck process) directly to the actions to promote exploration. But this can cause instability, especially in environments with steep value gradients. TD3 addresses this by adding noise to the target actions instead, which makes the updates smoother and more stable.
 
-**Delayed Policy Updates**
-DDPG updates both the actor and critic at every training step, which can introduce high variance into the learning process. TD3 delays policy updates, updating the actor less frequently (we update every two critic updates) thereby stabilizing training and improving overall performance.
+- **Delayed Policy Updates**  
+  DDPG updates both the actor and critic at every training step, which can introduce a lot of variance into the learning process. TD3 delays policy updates, updating the actor less frequently (we update every two critic updates). This helps stabilize training and improve overall performance.
 
-The pseudocode for both the algorithms is provided below.
+Below, you'll find the pseudocode for both algorithms.
 
 |                                                             DDPG                                                             |                                                                    TD3                                                                    |
 | :--------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
@@ -109,14 +90,14 @@ The pseudocode for both the algorithms is provided below.
 
 ## Performance Comparison: DDPG vs. TD3
 
-The DDPG algorithm failed to converge to a meaningful policy during training, highlighting its inability to effectively navigate the quadcopter environment. The TD3 algorithm showed improvements over DDPG, but performance remained suboptimal.
+The DDPG algorithm didn’t manage to converge to a useful policy during training, which highlighted its struggles in navigating the quadcopter environment. The TD3 algorithm showed some improvement over DDPG, but the performance was still far from ideal.
 
-When evaluating the trained agents from both methods over 100 episodes, the mean rewards and standard deviations were as follows:
+When we tested the trained agents from both methods over 100 episodes, the mean rewards and standard deviations were:
 
 - **DDPG**: Mean reward of \(-2091 \pm 1198\)
 - **TD3**: Mean reward of \(-1588 \pm 837\)
 
-Both algorithms exhibited high variance, and although TD3 outperformed DDPG, the results suggest that both approaches achieved suboptimal rewards. Qualitative simulations further revealed only slight improvements with TD3 over an untrained agent. Simulations of the untrained TD3 agent (left) and trained agent (right) are shown below, demonstrating the limited gains achieved.
+Both algorithms had high variance, and while TD3 performed better than DDPG, the results still pointed to suboptimal rewards. Looking at the qualitative simulations, we only saw slight improvements with TD3 over an untrained agent. The simulations below show the untrained TD3 agent on the left and the trained agent on the right, highlighting the limited progress made.
 
 |                 TD3 Untrained                 |                TD3 Trained                |          DDPG vs TD3 Comparison           |
 | :-------------------------------------------: | :---------------------------------------: | :---------------------------------------: |
