@@ -6,6 +6,7 @@
 ---
 
 ## Project Motivation
+
 The motivation for this project comes from the challenges of using reinforcement learning for drone navigation in real-world scenarios.​
 
 Traditional drone control relies on classical controllers like PID, but these methods struggle in adverse environments with disturbances or obstacles.​
@@ -13,10 +14,12 @@ Traditional drone control relies on classical controllers like PID, but these me
 Reinforcement learning, particularly for continuous control tasks, offers the potential to adapt and optimize drone navigation policies autonomously.
 
 ### Challenges with Existing Methods:​
+
 - **Handling Disturbances**: Many RL approaches struggle with unexpected disturbances
 - **Safety in RL**: Safety measures in RL are still relatively underdeveloped
 
 ### Potential applications: ​
+
 - Search-and-rescue missions in complex terrains.​
 - Delivery in urban environments
 
@@ -61,22 +64,18 @@ When evaluating the trained agents from both methods over 100 episodes, the mean
 Both algorithms exhibited high variance, and although TD3 outperformed DDPG, the results suggest that both approaches achieved suboptimal rewards. Qualitative simulations further revealed only slight improvements with TD3 over an untrained agent. Simulations of the untrained TD3 agent (left) and trained agent (right) are shown below, demonstrating the limited gains achieved.
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
-
-  <figure style="text-align: center; width: 32%;">
+  <figure style="text-align: center; width: 30%;">
     <img src="./figures/td3_untrained.gif" alt="TD3 Untrained" style="width: 100%; height: auto;">
     <figcaption>TD3 Untrained</figcaption>
   </figure>
-  
-  <figure style="text-align: center; width: 32%;">
+  <figure style="text-align: center; width: 30%;">
     <img src="./figures/td3_trained.gif" alt="TD3 Trained" style="width: 100%; height: auto;">
     <figcaption>TD3 Trained</figcaption>
   </figure>
-  
-  <figure style="text-align: center; width: 32%;">
+  <figure style="text-align: center; width: 30%;">
     <img src="./figures/ddpg_vs_td3.png" alt="DDPG vs TD3" style="width: 100%; height: auto;">
-    <figcaption>DDPG vs TD3 Comparison</figcaption>
+    <figcaption>DDPG vs TD3</figcaption>
   </figure>
-
 </div>
 These findings indicate that while TD3 addressed some shortcomings, it still failed to deliver reliable drone navigation. To address this, we simplified the learning environment by fixing the drone's start and goal positions across all episodes, aiming to make the policy easier to learn. Additionally, we tested the SAC and PPO algorithms within this simplified environment to explore alternative approaches.
 
@@ -99,15 +98,13 @@ SAC is an off-policy, model-free algorithm. It maximizes a trade-off between exp
 - SAC is computationally intensive because it trains twin Q-networks simultaneously.
 - It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation.
 
-
-| Feature | SAC | PPO |
-| --- | --- | --- |
-| Type | off-policy | on-policy |
-| Exploration | strong (entropy driven) | moderate |
-| Sample Efficiency | high (uses replay buffer) | lower (needs more samples) |
-| Training Stability | moderate (requires careful tuning) | high |
-| Performance | better for continuous control | balanced for all tasks |
-
+| Feature            | SAC                                | PPO                        |
+| ------------------ | ---------------------------------- | -------------------------- |
+| Type               | off-policy                         | on-policy                  |
+| Exploration        | strong (entropy driven)            | moderate                   |
+| Sample Efficiency  | high (uses replay buffer)          | lower (needs more samples) |
+| Training Stability | moderate (requires careful tuning) | high                       |
+| Performance        | better for continuous control      | balanced for all tasks     |
 
 ## Performance Comparison: SAC and PPO
 
