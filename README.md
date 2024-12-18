@@ -88,7 +88,7 @@ We encountered challenges in training the RL agent for point-to-point navigation
 - **Proven Algorithms**:
   We also tested well-established algorithms such as TD3, SAC, and PPO to verify and compare performance. While these algorithms showed slightly better results, they still fell short of the desired performance.
 
-We will now briefly review the algorithms considered and present the results in the following slides.
+We will now briefly review the algorithms considered and present the results in the following report.
 
 ## DDPG vs. TD3: Key Differences
 
@@ -147,11 +147,12 @@ SAC is an **off-policy**, **model-free** algorithm. It maximizes a trade-off bet
 
 <div align="center">
 
-| **Strengths of SAC**                                           | **Challenges of SAC**                                                              |
-|---------------------------------------------------------------|------------------------------------------------------------------------------------|
-| SAC is highly effective for continuous control tasks          | SAC is computationally intensive because it trains twin Q-networks simultaneously. |
-| It has strong exploration capabilities due to entropy maximization | It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation. |
-| It is computationally efficient compared to PPO, making it easier to scale |                                                                                    |
+| **Strengths of SAC**                                                       | **Challenges of SAC**                                                                               |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| SAC is highly effective for continuous control tasks                       | SAC is computationally intensive because it trains twin Q-networks simultaneously.                  |
+| It has strong exploration capabilities due to entropy maximization         | It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation. |
+| It is computationally efficient compared to PPO, making it easier to scale |                                                                                                     |
+
 </div>
 
 ### Proximal Policy Optimization (PPO)
@@ -160,11 +161,12 @@ PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimi
 
 <div align="center">
 
-| **Strengths of PPO**                                                      | **Challenges of PPO**                                                                                     |
-|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| PPO is simpler to implement and produces more stable training results     | PPO is less sample-efficient compared to off-policy methods like SAC.                                    |
-| It is suitable for environments with either discrete or continuous actions| It requires more interactions with the environment, which can be costly.                                 |
-| PPO is popular for training agents in large-scale distributed systems     |                                                                                                         |
+| **Strengths of PPO**                                                       | **Challenges of PPO**                                                    |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| PPO is simpler to implement and produces more stable training results      | PPO is less sample-efficient compared to off-policy methods like SAC.    |
+| It is suitable for environments with either discrete or continuous actions | It requires more interactions with the environment, which can be costly. |
+| PPO is popular for training agents in large-scale distributed systems      |                                                                          |
+
 </div>
 
 <br>
@@ -185,9 +187,9 @@ PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimi
 
 ### Performance
 
-| | |
-| --- | --- |
-|For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |                                                                                            |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
 
 ### Observations
 
