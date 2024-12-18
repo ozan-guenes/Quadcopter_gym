@@ -78,6 +78,23 @@ We tested various combinations of these parameters to determine a set of weights
 
 ## DDPG vs. TD3: Key Differences
 
+Deep Deterministic Policy Gradient (DDPG) is a model-free, off-policy, actor-critic algorithm designed for continuous action spaces. However, its performance can be hindered by stability and robustness issues. Twin Delayed Deep Deterministic Policy Gradient (TD3) addresses these limitations by introducing key improvements.
+
+**Overestimation Bias**
+DDPG relies on a single Q-network, which is susceptible to overestimation due to noise and errors in value predictions. In contrast, TD3 employs two Q-networks, using Double Q-learning to take the minimum Q-value. This approach effectively mitigates overestimation bias, enhancing the stability of learning.
+
+**Action Noise for Exploration**
+In DDPG, noise (we use an Ornstein-Uhlenbeck process) is added directly to the actions to promote exploration. However, this can lead to instability in environments with sharp value gradients. TD3 improves upon this by adding noise to the target actions instead, resulting in smoother and more stable updates.
+
+**Delayed Policy Updates**
+DDPG updates both the actor and critic at every training step, which can introduce high variance into the learning process. TD3 delays policy updates, updating the actor less frequently (we update every two critic updates) thereby stabilizing training and improving overall performance.
+
+The pseudocode for both the algorithms is provided below.
+
+|                   DDPG                   |                  TD3                  |
+| :--------------------------------------: | :-----------------------------------: |
+| ![TD3 Untrained](./figures/ddpg_alg.png) | ![TD3 Trained](./figures/td3_alg.png) |
+
 ## Performance Comparison: DDPG vs. TD3
 
 The DDPG algorithm failed to converge to a meaningful policy during training, highlighting its inability to effectively navigate the quadcopter environment. The TD3 algorithm showed improvements over DDPG, but performance remained suboptimal.
