@@ -145,7 +145,6 @@ SAC is an off-policy, model-free algorithm. It maximizes a trade-off between exp
 - SAC is computationally intensive because it trains twin Q-networks simultaneously.
 - It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation.
 
-<<<<<<< HEAD
 
 ### Proximal Policy Optimization (PPO):
 PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a clipped surrogate objective, which prevents large, unstable updates to the policy. PPO uses single policy networks and avoids replay buffers, making it simpler and more stable.
@@ -167,20 +166,33 @@ PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a cl
 | Sample Efficiency | high (uses replay buffer) | lower (needs more samples) |
 | Training Stability | moderate (requires careful tuning) | high |
 | Performance | better for continuous control | balanced for all tasks |
-
 </div>
 
-=======
-| Feature            | SAC                                | PPO                        |
-| ------------------ | ---------------------------------- | -------------------------- |
-| Type               | off-policy                         | on-policy                  |
-| Exploration        | strong (entropy driven)            | moderate                   |
-| Sample Efficiency  | high (uses replay buffer)          | lower (needs more samples) |
-| Training Stability | moderate (requires careful tuning) | high                       |
-| Performance        | better for continuous control      | balanced for all tasks     |
->>>>>>> refs/remotes/origin/main
-
 ## Performance Comparison: SAC and PPO
+
+### Performance
+
+<div style="display: flex; align-items: flex-start;">
+  <div style="flex: 1; margin-right: 10px;">
+    <p> For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization. </p>
+    In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. </p>
+    Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. </p>
+    
+  </div>
+  <div style="flex: 1;">
+    <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="max-width: 100%; height: auto;">
+  </div>
+</div>
+
+### Observations
+For SAC, the untrained model struggled to stabilize the UAV, while the trained SAC model successfully stabilized its orientation but failed to converge to the target location. This indicates SAC’s stability in control but limited proximity accuracy.
+
+For PPO, the trained model performed better. It aligned the UAV with the target and came closer to stabilizing within the target's proximity. Quantitatively, PPO demonstrated superior alignment and overall performance compared to SAC.
+
+|   | Untrained | Moderately Trained | Trained |
+| --- | :---: | :---: | :--------------: |
+| **SAC** | ![SAC Untrained](./figures/sac_untrained.gif) | ![SAC Mod Trained](./figures/sac_moderate_trained.gif) | ![SAC Trained](./figures/sac_trained.gif) |
+| **PPO** | ![PPO Untrained](./figures/ppo_untrained.gif) | ![PPO Mod Trained](./figures/ppo_moderate_trained.gif) | ![PPO Trained](./figures/ppo_trained.gif) |
 
 ## Conclusions and Limitations
 
