@@ -3,6 +3,8 @@
 <h4>Kasper Joergensen (20246358) & Ozan Günes (20225389)</h4>
 </div>
 
+Visit the [online version](https://github.com/ozan-guenes/Quadcopter_gym/tree/main) of this report on Github to the animations.
+
 ---
 
 ## Project Motivation
