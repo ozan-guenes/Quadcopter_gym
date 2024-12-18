@@ -135,7 +135,7 @@ These findings indicate that while TD3 addressed some shortcomings, it still fai
 
 ## Reward Function Re-Design
 
-To get better results we re-designed the reward function starting from reward functions of proven papers​
+To get better results we re-designed the reward function starting from reward functions of proven papers​.
 
 Again it proved difficult balancing the hyperparameters to encourage the desired bahavior.​
 
@@ -151,30 +151,31 @@ being close to the target and reaching the target.
 
 ### Soft Actor-Critic (SAC)
 
-SAC is an off-policy, model-free algorithm. It maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. SAC also uses a replay buffer to sample past experiences efficiently.
+SAC is an **off-policy**, **model-free** algorithm. It maximizes a trade-off between expected reward and entropy, which encourages exploration. This is achieved through a stochastic policy and the use of twin Q-networks to stabilize training. SAC also uses a replay buffer to sample past experiences efficiently.
 
-#### Strengths of SAC:
+<div align="center">
 
-- SAC is highly effective for continuous control tasks
-- It has strong exploration capabilities due to entropy maximization
-- It is computationally efficient compared to PPO, making it easier to scale
-
-#### Challenges of SAC:
-
-- SAC is computationally intensive because it trains twin Q-networks simultaneously.
-- It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation.
+| **Strengths of SAC**                                           | **Challenges of SAC**                                                              |
+|---------------------------------------------------------------|------------------------------------------------------------------------------------|
+| SAC is highly effective for continuous control tasks          | SAC is computationally intensive because it trains twin Q-networks simultaneously. |
+| It has strong exploration capabilities due to entropy maximization | It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation. |
+| It is computationally efficient compared to PPO, making it easier to scale |                                                                                    |
+</div>
 
 ### Proximal Policy Optimization (PPO)
 
-PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a clipped surrogate objective, which prevents large, unstable updates to the policy. PPO uses single policy networks and avoids replay buffers, making it simpler and more stable.
+PPO, on the other hand, is an **on-policy**, **model-free** algorithm. It optimizes a clipped surrogate objective, which prevents large, unstable updates to the policy. PPO uses single policy networks and avoids replay buffers, making it simpler and more stable.
 
-#### Strengths of PPO:
-- PPO is simpler to implement and produces more stable training results
-- It is suitable for environments with either discrete or continuous actions
-- PPO is popular for training agents in large-scale distributed systems
+<div align="center">
 
-#### Challenges of PPO:
-- PPO is less sample-efficient compared to off-policy methods like SAC. It requires more interactions with the environment, which can be costly.
+| **Strengths of PPO**                                                      | **Challenges of PPO**                                                                                     |
+|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| PPO is simpler to implement and produces more stable training results     | PPO is less sample-efficient compared to off-policy methods like SAC.                                    |
+| It is suitable for environments with either discrete or continuous actions| It requires more interactions with the environment, which can be costly.                                 |
+| PPO is popular for training agents in large-scale distributed systems     |                                                                                                         |
+</div>
+
+<br>
 
 <div align="center">
 
@@ -193,9 +194,9 @@ PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a cl
 
 ### Performance
 
-|  |  |
+| | |
 | --- | --- |
-| <br> For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
+|For SAC, the model converged to a stable reward around 400 episodes and did not improve further. This stability is due to SAC’s ability to balance exploration and exploitation through entropy maximization.<br> In contrast, the PPO model initially showed high variance in its reward curve. It took much longer—around 4200 episodes—before converging to a constant reward. This behavior reflects PPO's on-policy nature, which requires more interactions with the environment and makes exploration less efficient compared to SAC. <br> Looking at the mean episode rewards over 100 episodes, SAC achieved a mean reward of -912.46, while PPO slightly outperformed it with a mean reward of -895.14. | <img src="./figures/sac_vs_ppo.png" alt="sac vs ppo" style="width: 4000px; height: auto;"> |
 
 ### Observations
 
