@@ -46,8 +46,6 @@ The action space includes thrust forces from the four motors, each ranging from 
 
 Each simulation episode begins by randomly sampling the drone's initial and goal states. The task is for the drone to navigate to the target, at which point a new goal is generated.
 
-## Challenges in Training RL Agent
-
 ## Reward Function Design
 
 Designing an effective reward function was critical for training reinforcement learning (RL) policies. The reward function needed to balance competing objectives to encourage desired drone behaviors. Key components of the reward function included:
@@ -75,6 +73,20 @@ We tested various combinations of these parameters to determine a set of weights
 <div align="center">
     <img src="./figures/reward1.png" alt="Goal State Representation" width="100%">
 </div>
+
+## Challenges in Training RL Agent
+
+We encountered challenges in training the RL agent for point-to-point navigation. To diagnose the issue, we tested multiple RL algorithms.
+
+### Tested RL Methods:
+
+- **Custom DDPG Implementation**:
+  We implmented the DDPG algorithm from scratch based on the original paper. However, the results were suboptimal, raising concerns about the accuracy of the implementation.
+
+- **Proven Algorithms**:
+  We also tested well-established algorithms such as TD3, SAC, and PPO to verify and compare performance. While these algorithms showed slightly better results, they still fell short of the desired performance.
+
+We will now briefly review the algorithms considered and present the results in the following slides.
 
 ## DDPG vs. TD3: Key Differences
 
