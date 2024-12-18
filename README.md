@@ -71,6 +71,19 @@ SAC is an off-policy, model-free algorithm. It maximizes a trade-off between exp
 - It requires careful fine-tuning of the entropy coefficient to balance exploration and exploitation.
 
 
+### Proximal Policy Optimization (PPO):
+PPO, on the other hand, is an on-policy, model-free algorithm. It optimizes a clipped surrogate objective, which prevents large, unstable updates to the policy. PPO uses single policy networks and avoids replay buffers, making it simpler and more stable.
+
+#### Strengths of PPO:
+- PPO is simpler to implement and produces more stable training results
+- It is suitable for environments with either discrete or continuous actions
+- PPO is popular for training agents in large-scale distributed systems
+
+#### Challenges of PPO:
+- PPO is less sample-efficient compared to off-policy methods like SAC. It requires more interactions with the environment, which can be costly.
+   
+<div align="center">
+
 | Feature | SAC | PPO |
 | --- | --- | --- |
 | Type | off-policy | on-policy |
@@ -78,6 +91,8 @@ SAC is an off-policy, model-free algorithm. It maximizes a trade-off between exp
 | Sample Efficiency | high (uses replay buffer) | lower (needs more samples) |
 | Training Stability | moderate (requires careful tuning) | high |
 | Performance | better for continuous control | balanced for all tasks |
+
+</div>
 
 
 ## Performance Comparison: SAC and PPO
